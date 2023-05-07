@@ -10,7 +10,6 @@ const figures = [
 ];
 const colors = ['white', 'black', 'белых', 'черных'];
 let col = 0;
-let col2 = 0;
 let figure_picture = '';
 let figureCoordinate = {'x': -1, 'y': -1};
 let cellCoordinate = {'x': -1, 'y': -1};
