@@ -1,0 +1,57 @@
+if(figures[figureCoordinate.y][figureCoordinate.x].name == 'king'){
+                makeMove(figureCoordinate, cellCoordinate);
+
+                if(col == 0){
+                    check(bkingCoordinate, bkingCoordinate2);
+                    if(shah > 0){
+                        col = 1;
+                        makeMove(cellCoordinate, figureCoordinate);
+                        shah = 0;
+                        figures[figureCoordinate.y][figureCoordinate.x].step--;
+                    }
+                } else{
+                    check(wkingCoordinate, wkingCoordinate2);
+                    if(shah > 0){
+                        col = 0;
+                        makeMove(cellCoordinate, figureCoordinate);
+                        shah = 0;
+                        figures[figureCoordinate.y][figureCoordinate.x].step--;
+                    }
+                }
+            } else {
+                d = figures[figureCoordinate.y][figureCoordinate.x];
+                figures[figureCoordinate.y][figureCoordinate.x] = figures[cellCoordinate.y][cellCoordinate.x];
+                figures[cellCoordinate.y][cellCoordinate.x] = d;
+
+                if(col == 0){
+                    check(bkingCoordinate, bkingCoordinate2);
+                    if(shah > 0){
+                        col = 1;
+                        d = figures[figureCoordinate.y][figureCoordinate.x];
+                        figures[figureCoordinate.y][figureCoordinate.x] = figures[cellCoordinate.y][cellCoordinate.x];
+                        figures[cellCoordinate.y][cellCoordinate.x] = d;
+                        shah = 0;
+                        figures[figureCoordinate.y][figureCoordinate.x].step--;
+                    } else {
+                        d = figures[figureCoordinate.y][figureCoordinate.x];
+                        figures[figureCoordinate.y][figureCoordinate.x] = figures[cellCoordinate.y][cellCoordinate.x];
+                        figures[cellCoordinate.y][cellCoordinate.x] = d;
+                        makeMove(figureCoordinate, cellCoordinate);
+                    }
+                } else {
+                    check(wkingCoordinate, wkingCoordinate2);
+                    if(shah > 0){
+                        col = 0;
+                        d = figures[figureCoordinate.y][figureCoordinate.x];
+                        figures[figureCoordinate.y][figureCoordinate.x] = figures[cellCoordinate.y][cellCoordinate.x];
+                        figures[cellCoordinate.y][cellCoordinate.x] = d;
+                        shah = 0;
+                        figures[figureCoordinate.y][figureCoordinate.x].step--;
+                    } else {
+                        d = figures[figureCoordinate.y][figureCoordinate.x];
+                        figures[figureCoordinate.y][figureCoordinate.x] = figures[cellCoordinate.y][cellCoordinate.x];
+                        figures[cellCoordinate.y][cellCoordinate.x] = d;
+                        makeMove(figureCoordinate, cellCoordinate);
+                    }
+                }
+            }

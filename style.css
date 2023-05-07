@@ -1,0 +1,42 @@
+table {
+    border: #000000 1px solid;
+    margin:20px auto;
+}
+td {
+    width: 130px;
+    height: 130px;
+    border: #000000 1px solid;
+    vertical-align: center;
+    text-align: center;
+}
+td img {
+    width: 90%;
+    height: auto;
+}
+.black {
+    background: #8B4513;
+    color: #ffffff;
+}
+.white {
+    background: #FFDEAD;
+    color: #000000;
+}
+#result {
+    margin:20px;
+    text-align: center;
+    font-size: 60px;
+    font-family: 'Press Start 2P', cursive;
+}
+#cube {
+    width: 50px;
+    height: 50px;
+    border: #000000 5px solid;
+    text-align: center;
+    margin-right: 30px;
+    background-color: white;
+}
+#txt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
