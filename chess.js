@@ -65,6 +65,20 @@ function checkRook(x, y, color) {
         }
     }
 }
+function checkBishop(x, y, color) {
+    if(figures[y][x].name !== '' && figures[y][x].name !== 'king'){
+        if(figures[y][x].name !== 'bishop' && figures[y][x].name !== 'queen'){
+            return true;
+        } else {
+            if(figures[y][x].color !== color){
+                shahfigure.x = x;
+                shahfigure.y = y;
+                shah++;
+                return true;
+            }
+        }
+    }
+}
 
 function check(figureCoordinate, cellCoordinate, color){
     if(cellCoordinate.x * 1 + 1 < 8 && cellCoordinate.y * 1 + 1 < 8) {
@@ -104,17 +118,8 @@ function check(figureCoordinate, cellCoordinate, color){
         x = cellCoordinate.x * 1 + 1;
         y = cellCoordinate.y * 1 + 1;
         while(x < 8 && y < 8){
-            if(figures[y][x].name !== '' && figures[y][x].name !== 'king'){
-                if(figures[y][x].name !== 'bishop' && figures[y][x].name !== 'queen'){
-                    break;
-                } else {
-                    if(figures[y][x].color !== color){
-                        shahfigure.x = x;
-                        shahfigure.y = y;
-                        shah++;
-                        break;
-                    }
-                }
+            if (checkBishop(y, x, color)) {
+                break;
             }
             x++;
             y++;
@@ -124,17 +129,8 @@ function check(figureCoordinate, cellCoordinate, color){
         x = cellCoordinate.x * 1 - 1;
         y = cellCoordinate.y * 1 - 1;
         while(x >= 0 && y >= 0){
-            if(figures[y][x].name !== '' && figures[y][x].name !== 'king'){
-                if(figures[y][x].name !== 'bishop' && figures[y][x].name !== 'queen'){
-                    break;
-                } else {
-                    if(figures[y][x].color !== color){
-                        shahfigure.x = x;
-                        shahfigure.y = y;
-                        shah++;
-                        break;
-                    }
-                }
+            if (checkBishop(y, x, color)) {
+                break;
             }
             x--;
             y--;
@@ -144,17 +140,8 @@ function check(figureCoordinate, cellCoordinate, color){
         x = cellCoordinate.x * 1 + 1;
         y = cellCoordinate.y * 1 - 1;
         while(x < 8 && y >= 0){
-            if(figures[y][x].name !== '' && figures[y][x].name !== 'king'){
-                if(figures[y][x].name !== 'bishop' && figures[y][x].name !== 'queen'){
-                    break;
-                } else {
-                    if(figures[y][x].color !== color){
-                        shahfigure.x = x;
-                        shahfigure.y = y;
-                        shah++;
-                        break;
-                    }
-                }
+            if (checkBishop(y, x, color)) {
+                break;
             }
             x++;
             y--;
@@ -164,17 +151,8 @@ function check(figureCoordinate, cellCoordinate, color){
         x = cellCoordinate.x * 1 - 1;
         y = cellCoordinate.y * 1 + 1;
         while(x >= 0 && y < 8){
-            if(figures[y][x].name !== '' && figures[y][x].name !== 'king'){
-                if(figures[y][x].name !== 'bishop' && figures[y][x].name !== 'queen'){
-                    break;
-                } else {
-                    if(figures[y][x].color !== color){
-                        shahfigure.x = x;
-                        shahfigure.y = y;
-                        shah++;
-                        break;
-                    }
-                }
+            if (checkBishop(y, x, color)) {
+                break;
             }
             x--;
             y++;
