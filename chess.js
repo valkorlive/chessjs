@@ -51,7 +51,7 @@ function makeMove(figureCoordinate, cellCoordinate){
     document.querySelector('#cube').style.background = colors[col];
 }
 
-function checkRook(x, y, color) {
+function checkRook(color) {
     if(figures[y][x].name !== '' && figures[y][x].name !== 'king'){
         if(figures[y][x].name !== 'rook' && figures[y][x].name !== 'queen'){
             return true;
@@ -65,7 +65,7 @@ function checkRook(x, y, color) {
         }
     }
 }
-function checkBishop(x, y, color) {
+function checkBishop(color) {
     if(figures[y][x].name !== '' && figures[y][x].name !== 'king'){
         if(figures[y][x].name !== 'bishop' && figures[y][x].name !== 'queen'){
             return true;
@@ -79,87 +79,7 @@ function checkBishop(x, y, color) {
         }
     }
 }
-
-function check(figureCoordinate, cellCoordinate, color){
-    if(cellCoordinate.x * 1 + 1 < 8 && cellCoordinate.y * 1 + 1 < 8) {
-        x = cellCoordinate.x * 1 + 1;
-        y = cellCoordinate.y * 1 + 1;
-        while(x < 8) {
-            if (checkRook(cellCoordinate.y, x, color)) {
-                break;
-            }
-            x++;
-        }
-        while(y < 8){
-            if (checkRook(y, cellCoordinate.x, color)) {
-                break;
-            }
-            y++;
-        }
-    }
-
-    if(cellCoordinate.x * 1 - 1 >= 0 && cellCoordinate.y * 1 - 1 >= 0) {
-        x = cellCoordinate.x * 1 - 1;
-        y = cellCoordinate.y * 1 - 1;
-        while(x >= 0){
-            if (checkRook(cellCoordinate.y, x, color)) {
-                break;
-            }
-            x--;
-        }
-        while(y >= 0){
-            if (checkRook(y, cellCoordinate.x, color)) {
-                break;
-            }
-            y--;
-        }
-    }
-    if(cellCoordinate.x * 1 + 1 < 8 && cellCoordinate.y * 1 + 1 < 8) {
-        x = cellCoordinate.x * 1 + 1;
-        y = cellCoordinate.y * 1 + 1;
-        while(x < 8 && y < 8){
-            if (checkBishop(y, x, color)) {
-                break;
-            }
-            x++;
-            y++;
-        }
-    }
-    if(cellCoordinate.x * 1 - 1 >= 0 && cellCoordinate.y * 1 - 1 >= 0) {
-        x = cellCoordinate.x * 1 - 1;
-        y = cellCoordinate.y * 1 - 1;
-        while(x >= 0 && y >= 0){
-            if (checkBishop(y, x, color)) {
-                break;
-            }
-            x--;
-            y--;
-        }
-    }
-    if(cellCoordinate.x * 1 + 1 < 8 && cellCoordinate.y * 1 - 1 >= 0) {
-        x = cellCoordinate.x * 1 + 1;
-        y = cellCoordinate.y * 1 - 1;
-        while(x < 8 && y >= 0){
-            if (checkBishop(y, x, color)) {
-                break;
-            }
-            x++;
-            y--;
-        }
-    }
-    if(cellCoordinate.x * 1 - 1 >= 0 && cellCoordinate.y * 1 + 1 < 8) {
-        x = cellCoordinate.x * 1 - 1;
-        y = cellCoordinate.y * 1 + 1;
-        while(x >= 0 && y < 8){
-            if (checkBishop(y, x, color)) {
-                break;
-            }
-            x--;
-            y++;
-        }
-    }
-    
-
+function checkPawn(color) {
     if(figures[figureCoordinate.y][figureCoordinate.x].color == 'white'){
         if(cellCoordinate.y > 0 && cellCoordinate.x > 0){
             if(figures[cellCoordinate.y * 1 - 1][cellCoordinate.x * 1 - 1].name == 'pawn'){
@@ -169,7 +89,7 @@ function check(figureCoordinate, cellCoordinate, color){
                     shahfigure.x = x;
                     shahfigure.y = y;
                     shah++;
-                    return false;
+                    return true;
                 }
             }
         }
@@ -181,7 +101,7 @@ function check(figureCoordinate, cellCoordinate, color){
                     shahfigure.x = x;
                     shahfigure.y = y;
                     shah++;
-                    return false;
+                    return true;
                 }
             }
         }
@@ -194,7 +114,7 @@ function check(figureCoordinate, cellCoordinate, color){
                     shahfigure.x = x;
                     shahfigure.y = y;
                     shah++;
-                    return false;
+                    return true;
                 }
             }
         }
@@ -206,12 +126,13 @@ function check(figureCoordinate, cellCoordinate, color){
                     shahfigure.x = x;
                     shahfigure.y = y;
                     shah++;
-                    return false;
+                    return true;
                 }
             }
         }
     }
-
+}
+function checkKnigth(color) {
     if (cellCoordinate.y > 0 && cellCoordinate.x > 1){
         if (figures[cellCoordinate.y * 1 - 1][cellCoordinate.x * 1 - 2].name == 'knigth') {
             if(figures[cellCoordinate.y * 1 - 1][cellCoordinate.x * 1 - 2].color !== color) {
@@ -220,7 +141,7 @@ function check(figureCoordinate, cellCoordinate, color){
                 shahfigure.x = x;
                 shahfigure.y = y;
                 shah++;
-                return false;
+                return true;
             }
         }
     }
@@ -232,7 +153,7 @@ function check(figureCoordinate, cellCoordinate, color){
                 shahfigure.x = x;
                 shahfigure.y = y;
                 shah++;
-                return false;
+                return true;
             }
         }
     }
@@ -244,7 +165,7 @@ function check(figureCoordinate, cellCoordinate, color){
                 shahfigure.x = x;
                 shahfigure.y = y;
                 shah++;
-                return false;
+                return true;
             }
         }
     }
@@ -256,7 +177,7 @@ function check(figureCoordinate, cellCoordinate, color){
                 shahfigure.x = x;
                 shahfigure.y = y;
                 shah++;
-                return false;
+                return true;
             }
         }
     }
@@ -268,7 +189,7 @@ function check(figureCoordinate, cellCoordinate, color){
                 shahfigure.x = x;
                 shahfigure.y = y;
                 shah++;
-                return false;
+                return true;
             }
         }
     }
@@ -280,7 +201,7 @@ function check(figureCoordinate, cellCoordinate, color){
                 shahfigure.x = x;
                 shahfigure.y = y;
                 shah++;
-                return false;
+                return true;
             }
         }
     }
@@ -292,7 +213,7 @@ function check(figureCoordinate, cellCoordinate, color){
                 shahfigure.x = x;
                 shahfigure.y = y;
                 shah++;
-                return false;
+                return true;
             }
         }
     }
@@ -304,17 +225,18 @@ function check(figureCoordinate, cellCoordinate, color){
                 shahfigure.x = x;
                 shahfigure.y = y;
                 shah++;
-                return false;
+                return true;
             }
         }
     }
-
+}
+function checkKing(color) {
     if(cellCoordinate.y * 1 + 1 < 8){
         if(cellCoordinate.x * 1 - 1 >= 0){
             if(figures[cellCoordinate.y * 1 + 1][cellCoordinate.x * 1 - 1].name == 'king'){
                 if(figures[cellCoordinate.y * 1 + 1][cellCoordinate.x * 1 - 1].color !== color){
                     shah++;
-                    return false;
+                    return true;
                 }
             }
         }
@@ -322,7 +244,7 @@ function check(figureCoordinate, cellCoordinate, color){
             if(figures[cellCoordinate.y * 1 + 1][cellCoordinate.x].name == 'king'){
                 if(figures[cellCoordinate.y * 1 + 1][cellCoordinate.x].color !== color){
                     shah++;
-                    return false;
+                    return true;
                 }
             }
         }
@@ -330,7 +252,7 @@ function check(figureCoordinate, cellCoordinate, color){
             if(figures[cellCoordinate.y * 1 + 1][cellCoordinate.x * 1 + 1].name == 'king'){
                 if(figures[cellCoordinate.y * 1 + 1][cellCoordinate.x * 1 + 1].color !== color){
                     shah++;
-                    return false;
+                    return true;
                 }
             }
         }
@@ -340,7 +262,7 @@ function check(figureCoordinate, cellCoordinate, color){
             if(figures[cellCoordinate.y * 1 - 1][cellCoordinate.x * 1 - 1].name == 'king'){
                 if(figures[cellCoordinate.y * 1 - 1][cellCoordinate.x * 1 - 1].color !== color){
                     shah++;
-                    return false;
+                    return true;
                 }
             }
         } 
@@ -348,7 +270,7 @@ function check(figureCoordinate, cellCoordinate, color){
             if(figures[cellCoordinate.y * 1 - 1][cellCoordinate.x].name == 'king'){
                 if(figures[cellCoordinate.y * 1 - 1][cellCoordinate.x].color !== color){
                     shah++;
-                    return false;
+                    return true;
                 }
             }
         } 
@@ -356,7 +278,7 @@ function check(figureCoordinate, cellCoordinate, color){
             if(figures[cellCoordinate.y * 1 - 1][cellCoordinate.x * 1 + 1].name == 'king'){
                 if(figures[cellCoordinate.y * 1 - 1][cellCoordinate.x * 1 + 1].color !== color){
                     shah++;
-                    return false;
+                    return true;
                 }
             }
         }
@@ -365,7 +287,7 @@ function check(figureCoordinate, cellCoordinate, color){
         if(figures[cellCoordinate.y][cellCoordinate.x * 1 + 1].name == 'king'){
             if(figures[cellCoordinate.y][cellCoordinate.x * 1 + 1].color !== color){
                 shah++;
-                return false;
+                return true;
             }
         }
     } 
@@ -373,12 +295,103 @@ function check(figureCoordinate, cellCoordinate, color){
         if(figures[cellCoordinate.y][cellCoordinate.x * 1 - 1].name == 'king'){
             if(figures[cellCoordinate.y][cellCoordinate.x * 1 - 1].color !== color){
                 shah++;
-                return false;
+                return true;
             }
         }
     }
 }
+function check(figureCoordinate, cellCoordinate, color){
+    if(cellCoordinate.x * 1 + 1 < 8 && cellCoordinate.y * 1 + 1 < 8) {
+        x = cellCoordinate.x * 1 + 1;
+        y = cellCoordinate.y * 1 + 1;
+        while(x < 8) {
+            if (checkRook(color)) {
+                break;
+            }
+            x++;
+        }
+        while(y < 8){
+            if (checkRook(color)) {
+                break;
+            }
+            y++;
+        }
+    }
 
+    if(cellCoordinate.x * 1 - 1 >= 0 && cellCoordinate.y * 1 - 1 >= 0) {
+        x = cellCoordinate.x * 1 - 1;
+        y = cellCoordinate.y * 1 - 1;
+        while(x >= 0){
+            if (checkRook(color)) {
+                break;
+            }
+            x--;
+        }
+        while(y >= 0){
+            if (checkRook(color)) {
+                break;
+            }
+            y--;
+        }
+    }
+    if(cellCoordinate.x * 1 + 1 < 8 && cellCoordinate.y * 1 + 1 < 8) {
+        x = cellCoordinate.x * 1 + 1;
+        y = cellCoordinate.y * 1 + 1;
+        while(x < 8 && y < 8){
+            if (checkBishop(color)) {
+                break;
+            }
+            x++;
+            y++;
+        }
+    }
+    if(cellCoordinate.x * 1 - 1 >= 0 && cellCoordinate.y * 1 - 1 >= 0) {
+        x = cellCoordinate.x * 1 - 1;
+        y = cellCoordinate.y * 1 - 1;
+        while(x >= 0 && y >= 0){
+            if (checkBishop(color)) {
+                break;
+            }
+            x--;
+            y--;
+        }
+    }
+    if(cellCoordinate.x * 1 + 1 < 8 && cellCoordinate.y * 1 - 1 >= 0) {
+        x = cellCoordinate.x * 1 + 1;
+        y = cellCoordinate.y * 1 - 1;
+        while(x < 8 && y >= 0){
+            if (checkBishop(color)) {
+                break;
+            }
+            x++;
+            y--;
+        }
+    }
+    if(cellCoordinate.x * 1 - 1 >= 0 && cellCoordinate.y * 1 + 1 < 8) {
+        x = cellCoordinate.x * 1 - 1;
+        y = cellCoordinate.y * 1 + 1;
+        while(x >= 0 && y < 8){
+            if (checkBishop(color)) {
+                break;
+            }
+            x--;
+            y++;
+        }
+    }
+    
+
+    if(checkPawn(color)) {
+        return false;
+    }
+
+    if(checkKnigth(color)) {
+        return false;
+    }
+
+    if(checkKing(color)) {
+        return false;
+    }
+}
 function checkmath(kingCoordinate, kingCoordinate2) {
     shah = 0;
     check(kingCoordinate, kingCoordinate2, figures[kingCoordinate.y][kingCoordinate.x].color);
@@ -690,6 +703,276 @@ function checkmath(kingCoordinate, kingCoordinate2) {
     }
 }
 
+function movePawn() {
+    if (figures[figureCoordinate.y][figureCoordinate.x].color == 'white') {
+        if (figures[cellCoordinate.y][cellCoordinate.x].name !== '') {
+            if (!(figureCoordinate.x - 1 == cellCoordinate.x && figureCoordinate.y - 1 == cellCoordinate.y) && 
+                !(figureCoordinate.x * 1 + 1 == cellCoordinate.x && figureCoordinate.y - 1 == cellCoordinate.y)) {
+                return true;
+            }
+        } else {
+            if (figureCoordinate.x !== cellCoordinate.x) {
+                return true;
+            }
+            if(figures[figureCoordinate.y][figureCoordinate.x].step == '0'){
+                if (((figureCoordinate.y * 1 - 1) !== cellCoordinate.y * 1) && 
+                    ((figureCoordinate.y * 1 - 2) !== cellCoordinate.y * 1)) {
+                    return true;
+                }
+            } else {
+                if ((figureCoordinate.y * 1 - 1) !== cellCoordinate.y * 1) {
+                    return true;
+                }
+            }
+        }
+    } else if (figures[figureCoordinate.y][figureCoordinate.x].color == 'black') {
+        if (figures[cellCoordinate.y][cellCoordinate.x].name !== '') {
+            if (!(figureCoordinate.x - 1 == cellCoordinate.x && figureCoordinate.y * 1 + 1 == cellCoordinate.y) && 
+                !(figureCoordinate.x * 1 + 1 == cellCoordinate.x && figureCoordinate.y * 1 + 1 == cellCoordinate.y)) {
+                return true;
+            }
+        } else {
+            if (figureCoordinate.x !== cellCoordinate.x) {
+                return true;
+            }
+            if(figures[figureCoordinate.y][figureCoordinate.x].step == '0'){
+                if (((figureCoordinate.y * 1 + 1) !== cellCoordinate.y * 1) && 
+                    ((figureCoordinate.y * 1 + 2) !== cellCoordinate.y * 1)) {
+                    return true;
+                }
+            } else {
+                if ((figureCoordinate.y * 1 + 1) !== cellCoordinate.y * 1) {
+                    return true;
+                }
+            }
+        }
+    }
+}
+function moveRook() {
+    if (!(figureCoordinate.x == cellCoordinate.x) && 
+                        !(figureCoordinate.y == cellCoordinate.y)) {
+                        return true;
+                    }
+                    if(figureCoordinate.x !== cellCoordinate.x){
+                        if(figureCoordinate.x > cellCoordinate.x){
+                            start = cellCoordinate.x * 1;
+                            stoper = figureCoordinate.x * 1;
+                        } else {
+                            stoper = cellCoordinate.x * 1;
+                            start = figureCoordinate.x * 1;
+                        }
+                        for(let i = start + 1; i < stoper; i++){
+                            if(figures[figureCoordinate.y][i].name !== ''){
+                                return true;
+                            }
+                        }
+                    } else if(figureCoordinate.y !== cellCoordinate.y){
+                        if(figureCoordinate.y > cellCoordinate.y){
+                            start = cellCoordinate.y * 1;
+                            stoper = figureCoordinate.y * 1;
+                        } else {
+                            stoper = cellCoordinate.y * 1;
+                            start = figureCoordinate.y * 1;
+                        }
+                        for(let i = start + 1; i < stoper; i++){
+                            if(figures[i][figureCoordinate.x].name !== ''){
+                                return true;
+                            }
+                        }
+                    }
+}
+function moveBishop() {
+    let diagonalxstart = 0;
+    let diagonalxstop = 0;
+    let diagonalystart = 0;
+    let diagonalystop = 0;
+    const arr1 = [];
+    const arr2 = [];
+    if(figureCoordinate.x > cellCoordinate.x){
+        diagonalxstart = figureCoordinate.x;
+        diagonalxstop = cellCoordinate.x;
+        for (let i = figureCoordinate.x * 1 - 1; i > cellCoordinate.x; i--) {
+            arr2.push(i);
+        }
+    } else {
+        diagonalxstart = cellCoordinate.x;
+        diagonalxstop = figureCoordinate.x;
+        for (let i = figureCoordinate.x * 1 + 1; i < cellCoordinate.x; i++) {
+            arr2.push(i);
+        }
+    }
+    if(figureCoordinate.y > cellCoordinate.y){
+        diagonalystart = figureCoordinate.y;
+        diagonalystop = cellCoordinate.y;
+        for (let i = figureCoordinate.y * 1 - 1; i > cellCoordinate.y; i--) {
+            arr1.push(i);
+        }
+    } else {
+        diagonalystart = cellCoordinate.y;
+        diagonalystop = figureCoordinate.y;
+        for (let i = figureCoordinate.y * 1 + 1; i < cellCoordinate.y; i++) {
+            arr1.push(i);
+        }
+    }
+    if(diagonalxstart * 1 - diagonalxstop * 1 !== diagonalystart * 1 - diagonalystop * 1){
+        return true;
+    }
+    for(let i = 0; i < arr1.length; i++){
+        if(figures[arr1[i]][arr2[i]].name !== ''){
+            return true;
+        }
+    }
+}
+function moveQueen() {
+    if ((figureCoordinate.x == cellCoordinate.x) || 
+        (figureCoordinate.y == cellCoordinate.y)) {
+        if(figureCoordinate.x !== cellCoordinate.x){
+            if(figureCoordinate.x > cellCoordinate.x){
+                start = cellCoordinate.x * 1;
+                stoper = figureCoordinate.x * 1;
+            } else {
+                stoper = cellCoordinate.x * 1;
+                start = figureCoordinate.x * 1;
+            }
+            for(let i = start + 1; i < stoper; i++){
+                if(figures[figureCoordinate.y][i].name !== ''){
+                    return true;
+                }
+            }
+        } else if(figureCoordinate.y !== cellCoordinate.y){
+            if(figureCoordinate.y > cellCoordinate.y){
+                start = cellCoordinate.y * 1;
+                stoper = figureCoordinate.y * 1;
+            } else {
+                stoper = cellCoordinate.y * 1;
+                start = figureCoordinate.y * 1;
+            }
+            for(let i = start + 1; i < stoper; i++){
+                if(figures[i][figureCoordinate.x].name !== ''){
+                    return true;
+                }
+            }
+        }
+    } else {
+        let diagonalxstart = 0;
+        let diagonalxstop = 0;
+        let diagonalystart = 0;
+        let diagonalystop = 0;
+        const arr1 = [];
+        const arr2 = [];
+        if(figureCoordinate.x > cellCoordinate.x){
+            diagonalxstart = figureCoordinate.x;
+            diagonalxstop = cellCoordinate.x;
+            for (let i = figureCoordinate.x * 1 - 1; i > cellCoordinate.x; i--) {
+                arr2.push(i);
+            }
+        } else {
+            diagonalxstart = cellCoordinate.x;
+            diagonalxstop = figureCoordinate.x;
+            for (let i = figureCoordinate.x * 1 + 1; i < cellCoordinate.x; i++) {
+                arr2.push(i);
+            }
+        }
+        if(figureCoordinate.y > cellCoordinate.y){
+            diagonalystart = figureCoordinate.y;
+            diagonalystop = cellCoordinate.y;
+            for (let i = figureCoordinate.y * 1 - 1; i > cellCoordinate.y; i--) {
+                arr1.push(i);
+            }
+        } else {
+            diagonalystart = cellCoordinate.y;
+            diagonalystop = figureCoordinate.y;
+            for (let i = figureCoordinate.y * 1 + 1; i < cellCoordinate.y; i++) {
+                arr1.push(i);
+            }
+        }
+        if(diagonalxstart * 1 - diagonalxstop * 1 !== diagonalystart * 1 - diagonalystop * 1){
+            return true;
+        }
+        for(let i = 0; i < arr1.length; i++){
+            if(figures[arr1[i]][arr2[i]].name !== ''){
+                return true;
+            }
+        }
+    }
+}
+function moveKnigth() {
+    if (figureCoordinate.x * 1 + 2 == cellCoordinate.x || figureCoordinate.x * 1 - 2 == cellCoordinate.x) {
+        if(!(figureCoordinate.y * 1 + 1 == cellCoordinate.y || figureCoordinate.y * 1 - 1 == cellCoordinate.y)) {
+            return true;
+        }
+    } else if (figureCoordinate.y * 1 + 2 == cellCoordinate.y || figureCoordinate.y * 1 - 2 == cellCoordinate.y) {
+        if(!(figureCoordinate.x * 1 + 1 == cellCoordinate.x || figureCoordinate.x * 1 - 1 == cellCoordinate.x)){
+            return true;
+        }
+    } else {
+        return true;
+    }
+}
+function moveKing() {
+    let c = {'x' : cellCoordinate.x, 'y': cellCoordinate.y};
+    if (figureCoordinate.x * 1 + 1 == cellCoordinate.x || figureCoordinate.x * 1 - 1 == cellCoordinate.x) {
+        if(!(figureCoordinate.y * 1 + 1 == cellCoordinate.y || figureCoordinate.y * 1 - 1 == cellCoordinate.y || figureCoordinate.y == cellCoordinate.y)) {
+            return true;
+        }
+    } else if (figureCoordinate.y * 1 + 1 == cellCoordinate.y || figureCoordinate.y * 1 - 1 == cellCoordinate.y) {
+        if(!(figureCoordinate.x * 1 + 1 == cellCoordinate.x || figureCoordinate.x * 1 - 1 == cellCoordinate.x || figureCoordinate.x == cellCoordinate.x)){
+            return true;
+        }
+    } else if((cellCoordinate.x == figureCoordinate.x * 1 - 2 && cellCoordinate.y == figureCoordinate.y) && (figureCoordinate.y * 1 == 7 || figureCoordinate.y * 1 == 0)){
+        if((figures[figureCoordinate.y][figureCoordinate.x * 1 - 4].name == 'rook' && figures[figureCoordinate.y][figureCoordinate.x * 1- 4].step == '0') && figures[figureCoordinate.y][figureCoordinate.x].step == '0'){
+            shah = 0;
+            check({'y': figureCoordinate.y, 'x': figureCoordinate.x}, {'y': figureCoordinate.y, 'x': figureCoordinate.x}, figures[figureCoordinate.y][figureCoordinate.x].color);
+            if(shah == 0){
+                check({'y': figureCoordinate.y, 'x': figureCoordinate.x * 1 - 1}, {'y': figureCoordinate.y, 'x': figureCoordinate.x * 1 - 1}, figures[figureCoordinate.y][figureCoordinate.x].color);
+                if(shah == 0) {
+                    if(figures[figureCoordinate.y][figureCoordinate.x * 1 - 1].name == '' && figures[figureCoordinate.y][figureCoordinate.x * 1 - 3].name == '') {
+                        makeMove({'y': figureCoordinate.y, 'x': figureCoordinate.x}, {'y': figureCoordinate.y, 'x': figureCoordinate.x})
+                    }
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+            shah = 0;
+        } else {
+            return true;
+        }
+    } else if((cellCoordinate.x == figureCoordinate.x * 1 + 2 && cellCoordinate.y == figureCoordinate.y) && (figureCoordinate.y * 1 == 7 || figureCoordinate.y * 1 == 0)){
+        if((figures[figureCoordinate.y][figureCoordinate.x * 1 + 3].name == 'rook' && figures[figureCoordinate.y][figureCoordinate.x * 1 + 3].step == '0') && figures[figureCoordinate.y][figureCoordinate.x].step == '0'){
+            shah = 0;
+            check({'y': figureCoordinate.y, 'x': figureCoordinate.x}, {'y': figureCoordinate.y, 'x': figureCoordinate.x}, figures[figureCoordinate.y][figureCoordinate.x].color);
+            if(shah == 0){
+                check({'y': figureCoordinate.y, 'x': figureCoordinate.x * 1 + 1}, {'y': figureCoordinate.y, 'x': figureCoordinate.x * 1 + 1}, figures[figureCoordinate.y][figureCoordinate.x].color);
+                if(shah == 0){
+                    if(figures[figureCoordinate.y][figureCoordinate.x * 1 + 1].name == '') {
+                        makeMove({'y': figureCoordinate.y, 'x': figureCoordinate.x * 1 + 3}, {'y': figureCoordinate.y, 'x': figureCoordinate.x * 1 + 1})
+                    }
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+            shah = 0;
+        } else {
+            return true;
+        }
+    } else {
+        return true;
+    }
+    check(figureCoordinate, cellCoordinate, figures[figureCoordinate.y][figureCoordinate.x].color);
+    if(col == 1){
+        bkingCoordinate = c;
+        bkingCoordinate2 = bkingCoordinate;
+    } else{
+        wkingCoordinate = c;
+        wkingCoordinate2 = wkingCoordinate;
+    }
+    shah = 0;
+}
+
 function imitation(figure, cell) {
     let empty = {'name' : '', 'color' : ''};
     d = figures[cell.y][cell.x];
@@ -755,268 +1038,17 @@ document.querySelectorAll('.cell').forEach((cell) => {
             }
             if(figures[figureCoordinate.y][figureCoordinate.x].color == colors[col]){
                 if (figures[figureCoordinate.y][figureCoordinate.x].name == 'pawn') {
-                    if (figures[figureCoordinate.y][figureCoordinate.x].color == 'white') {
-                        if (figures[cellCoordinate.y][cellCoordinate.x].name !== '') {
-                            if (!(figureCoordinate.x - 1 == cellCoordinate.x && figureCoordinate.y - 1 == cellCoordinate.y) && 
-                                !(figureCoordinate.x * 1 + 1 == cellCoordinate.x && figureCoordinate.y - 1 == cellCoordinate.y)) {
-                                return false;
-                            }
-                        } else {
-                            if (figureCoordinate.x !== cellCoordinate.x) {
-                                return false;
-                            }
-                            if(figures[figureCoordinate.y][figureCoordinate.x].step == '0'){
-                                if (((figureCoordinate.y * 1 - 1) !== cellCoordinate.y * 1) && 
-                                    ((figureCoordinate.y * 1 - 2) !== cellCoordinate.y * 1)) {
-                                    return false;
-                                }
-                            } else {
-                                if ((figureCoordinate.y * 1 - 1) !== cellCoordinate.y * 1) {
-                                    return false;
-                                }
-                            }
-                        }
-                    } else if (figures[figureCoordinate.y][figureCoordinate.x].color == 'black') {
-                        if (figures[cellCoordinate.y][cellCoordinate.x].name !== '') {
-                            if (!(figureCoordinate.x - 1 == cellCoordinate.x && figureCoordinate.y * 1 + 1 == cellCoordinate.y) && 
-                                !(figureCoordinate.x * 1 + 1 == cellCoordinate.x && figureCoordinate.y * 1 + 1 == cellCoordinate.y)) {
-                                return false;
-                            }
-                        } else {
-                            if (figureCoordinate.x !== cellCoordinate.x) {
-                                return false;
-                            }
-                            if(figures[figureCoordinate.y][figureCoordinate.x].step == '0'){
-                                if (((figureCoordinate.y * 1 + 1) !== cellCoordinate.y * 1) && 
-                                    ((figureCoordinate.y * 1 + 2) !== cellCoordinate.y * 1)) {
-                                    return false;
-                                }
-                            } else {
-                                if ((figureCoordinate.y * 1 + 1) !== cellCoordinate.y * 1) {
-                                    return false;
-                                }
-                            }
-                        }
-                    }
+                    movePawn();
                 } else if (figures[figureCoordinate.y][figureCoordinate.x].name == 'rook') {
-                    if (!(figureCoordinate.x == cellCoordinate.x) && 
-                        !(figureCoordinate.y == cellCoordinate.y)) {
-                        return false;
-                    }
-                    if(figureCoordinate.x !== cellCoordinate.x){
-                        if(figureCoordinate.x > cellCoordinate.x){
-                            start = cellCoordinate.x * 1;
-                            stoper = figureCoordinate.x * 1;
-                        } else {
-                            stoper = cellCoordinate.x * 1;
-                            start = figureCoordinate.x * 1;
-                        }
-                        for(let i = start + 1; i < stoper; i++){
-                            if(figures[figureCoordinate.y][i].name !== ''){
-                                return false;
-                            }
-                        }
-                    } else if(figureCoordinate.y !== cellCoordinate.y){
-                        if(figureCoordinate.y > cellCoordinate.y){
-                            start = cellCoordinate.y * 1;
-                            stoper = figureCoordinate.y * 1;
-                        } else {
-                            stoper = cellCoordinate.y * 1;
-                            start = figureCoordinate.y * 1;
-                        }
-                        for(let i = start + 1; i < stoper; i++){
-                            if(figures[i][figureCoordinate.x].name !== ''){
-                                return false;
-                            }
-                        }
-                    }
+                    moveRook();
                 } else if (figures[figureCoordinate.y][figureCoordinate.x].name == 'bishop') {
-                    let diagonalxstart = 0;
-                    let diagonalxstop = 0;
-                    let diagonalystart = 0;
-                    let diagonalystop = 0;
-                    const arr1 = [];
-                    const arr2 = [];
-                    if(figureCoordinate.x > cellCoordinate.x){
-                        diagonalxstart = figureCoordinate.x;
-                        diagonalxstop = cellCoordinate.x;
-                        for (let i = figureCoordinate.x * 1 - 1; i > cellCoordinate.x; i--) {
-                            arr2.push(i);
-                        }
-                    } else {
-                        diagonalxstart = cellCoordinate.x;
-                        diagonalxstop = figureCoordinate.x;
-                        for (let i = figureCoordinate.x * 1 + 1; i < cellCoordinate.x; i++) {
-                            arr2.push(i);
-                        }
-                    }
-                    if(figureCoordinate.y > cellCoordinate.y){
-                        diagonalystart = figureCoordinate.y;
-                        diagonalystop = cellCoordinate.y;
-                        for (let i = figureCoordinate.y * 1 - 1; i > cellCoordinate.y; i--) {
-                            arr1.push(i);
-                        }
-                    } else {
-                        diagonalystart = cellCoordinate.y;
-                        diagonalystop = figureCoordinate.y;
-                        for (let i = figureCoordinate.y * 1 + 1; i < cellCoordinate.y; i++) {
-                            arr1.push(i);
-                        }
-                    }
-                    if(diagonalxstart * 1 - diagonalxstop * 1 !== diagonalystart * 1 - diagonalystop * 1){
-                        return false;
-                    }
-                    for(let i = 0; i < arr1.length; i++){
-                        if(figures[arr1[i]][arr2[i]].name !== ''){
-                            return false;
-                        }
-                    }
+                    moveBishop();
                 } else if (figures[figureCoordinate.y][figureCoordinate.x].name == 'queen'){
-                    if ((figureCoordinate.x == cellCoordinate.x) || 
-                        (figureCoordinate.y == cellCoordinate.y)) {
-                        if(figureCoordinate.x !== cellCoordinate.x){
-                            if(figureCoordinate.x > cellCoordinate.x){
-                                start = cellCoordinate.x * 1;
-                                stoper = figureCoordinate.x * 1;
-                            } else {
-                                stoper = cellCoordinate.x * 1;
-                                start = figureCoordinate.x * 1;
-                            }
-                            for(let i = start + 1; i < stoper; i++){
-                                if(figures[figureCoordinate.y][i].name !== ''){
-                                    return false;
-                                }
-                            }
-                        } else if(figureCoordinate.y !== cellCoordinate.y){
-                            if(figureCoordinate.y > cellCoordinate.y){
-                                start = cellCoordinate.y * 1;
-                                stoper = figureCoordinate.y * 1;
-                            } else {
-                                stoper = cellCoordinate.y * 1;
-                                start = figureCoordinate.y * 1;
-                            }
-                            for(let i = start + 1; i < stoper; i++){
-                                if(figures[i][figureCoordinate.x].name !== ''){
-                                    return false;
-                                }
-                            }
-                        }
-                    } else {
-                        let diagonalxstart = 0;
-                        let diagonalxstop = 0;
-                        let diagonalystart = 0;
-                        let diagonalystop = 0;
-                        const arr1 = [];
-                        const arr2 = [];
-                        if(figureCoordinate.x > cellCoordinate.x){
-                            diagonalxstart = figureCoordinate.x;
-                            diagonalxstop = cellCoordinate.x;
-                            for (let i = figureCoordinate.x * 1 - 1; i > cellCoordinate.x; i--) {
-                                arr2.push(i);
-                            }
-                        } else {
-                            diagonalxstart = cellCoordinate.x;
-                            diagonalxstop = figureCoordinate.x;
-                            for (let i = figureCoordinate.x * 1 + 1; i < cellCoordinate.x; i++) {
-                                arr2.push(i);
-                            }
-                        }
-                        if(figureCoordinate.y > cellCoordinate.y){
-                            diagonalystart = figureCoordinate.y;
-                            diagonalystop = cellCoordinate.y;
-                            for (let i = figureCoordinate.y * 1 - 1; i > cellCoordinate.y; i--) {
-                                arr1.push(i);
-                            }
-                        } else {
-                            diagonalystart = cellCoordinate.y;
-                            diagonalystop = figureCoordinate.y;
-                            for (let i = figureCoordinate.y * 1 + 1; i < cellCoordinate.y; i++) {
-                                arr1.push(i);
-                            }
-                        }
-                        if(diagonalxstart * 1 - diagonalxstop * 1 !== diagonalystart * 1 - diagonalystop * 1){
-                            return false;
-                        }
-                        for(let i = 0; i < arr1.length; i++){
-                            if(figures[arr1[i]][arr2[i]].name !== ''){
-                                return false;
-                            }
-                        }
-                    }
+                    moveQueen();
                 } else if (figures[figureCoordinate.y][figureCoordinate.x].name == 'knigth') {
-                    if (figureCoordinate.x * 1 + 2 == cellCoordinate.x || figureCoordinate.x * 1 - 2 == cellCoordinate.x) {
-                        if(!(figureCoordinate.y * 1 + 1 == cellCoordinate.y || figureCoordinate.y * 1 - 1 == cellCoordinate.y)) {
-                            return false;
-                        }
-                    } else if (figureCoordinate.y * 1 + 2 == cellCoordinate.y || figureCoordinate.y * 1 - 2 == cellCoordinate.y) {
-                        if(!(figureCoordinate.x * 1 + 1 == cellCoordinate.x || figureCoordinate.x * 1 - 1 == cellCoordinate.x)){
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }                        
+                    moveKnigth();
                 } else if (figures[figureCoordinate.y][figureCoordinate.x].name == 'king') {
-                    let c = {'x' : cellCoordinate.x, 'y': cellCoordinate.y};
-                    if (figureCoordinate.x * 1 + 1 == cellCoordinate.x || figureCoordinate.x * 1 - 1 == cellCoordinate.x) {
-                        if(!(figureCoordinate.y * 1 + 1 == cellCoordinate.y || figureCoordinate.y * 1 - 1 == cellCoordinate.y || figureCoordinate.y == cellCoordinate.y)) {
-                            return false;
-                        }
-                    } else if (figureCoordinate.y * 1 + 1 == cellCoordinate.y || figureCoordinate.y * 1 - 1 == cellCoordinate.y) {
-                        if(!(figureCoordinate.x * 1 + 1 == cellCoordinate.x || figureCoordinate.x * 1 - 1 == cellCoordinate.x || figureCoordinate.x == cellCoordinate.x)){
-                            return false;
-                        }
-                    } else if((cellCoordinate.x == figureCoordinate.x * 1 - 2 && cellCoordinate.y == figureCoordinate.y) && (figureCoordinate.y * 1 == 7 || figureCoordinate.y * 1 == 0)){
-                        if((figures[figureCoordinate.y][figureCoordinate.x * 1 - 4].name == 'rook' && figures[figureCoordinate.y][figureCoordinate.x * 1- 4].step == '0') && figures[figureCoordinate.y][figureCoordinate.x].step == '0'){
-                            shah = 0;
-                            check({'y': figureCoordinate.y, 'x': figureCoordinate.x}, {'y': figureCoordinate.y, 'x': figureCoordinate.x}, figures[figureCoordinate.y][figureCoordinate.x].color);
-                            if(shah == 0){
-                                check({'y': figureCoordinate.y, 'x': figureCoordinate.x * 1 - 1}, {'y': figureCoordinate.y, 'x': figureCoordinate.x * 1 - 1}, figures[figureCoordinate.y][figureCoordinate.x].color);
-                                if(shah == 0) {
-                                    if(figures[figureCoordinate.y][figureCoordinate.x * 1 - 1].name == '' && figures[figureCoordinate.y][figureCoordinate.x * 1 - 3].name == '') {
-                                        makeMove({'y': figureCoordinate.y, 'x': figureCoordinate.x}, {'y': figureCoordinate.y, 'x': figureCoordinate.x})
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                return false;
-                            }
-                            shah = 0;
-                        } else {
-                            return false;
-                        }
-                    } else if((cellCoordinate.x == figureCoordinate.x * 1 + 2 && cellCoordinate.y == figureCoordinate.y) && (figureCoordinate.y * 1 == 7 || figureCoordinate.y * 1 == 0)){
-                        if((figures[figureCoordinate.y][figureCoordinate.x * 1 + 3].name == 'rook' && figures[figureCoordinate.y][figureCoordinate.x * 1 + 3].step == '0') && figures[figureCoordinate.y][figureCoordinate.x].step == '0'){
-                            shah = 0;
-                            check({'y': figureCoordinate.y, 'x': figureCoordinate.x}, {'y': figureCoordinate.y, 'x': figureCoordinate.x}, figures[figureCoordinate.y][figureCoordinate.x].color);
-                            if(shah == 0){
-                                check({'y': figureCoordinate.y, 'x': figureCoordinate.x * 1 + 1}, {'y': figureCoordinate.y, 'x': figureCoordinate.x * 1 + 1}, figures[figureCoordinate.y][figureCoordinate.x].color);
-                                if(shah == 0){
-                                    if(figures[figureCoordinate.y][figureCoordinate.x * 1 + 1].name == '') {
-                                        makeMove({'y': figureCoordinate.y, 'x': figureCoordinate.x * 1 + 3}, {'y': figureCoordinate.y, 'x': figureCoordinate.x * 1 + 1})
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                return false;
-                            }
-                            shah = 0;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }
-                    check(figureCoordinate, cellCoordinate, figures[figureCoordinate.y][figureCoordinate.x].color);
-                    if(col == 1){
-                        bkingCoordinate = c;
-                        bkingCoordinate2 = bkingCoordinate;
-                    } else{
-                        wkingCoordinate = c;
-                        wkingCoordinate2 = wkingCoordinate;
-                    }
-                    shah = 0;
+                    moveKing();
                 }
                 if(col == 0){
                     col = 1;
