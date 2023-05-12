@@ -1,16 +1,5 @@
-const figures = [
-    [{'name' : 'rook', 'color' : 'black', 'step': '0'}, {'name' : 'knigth', 'color' : 'black', 'step': '0'}, {'name' : 'bishop', 'color' : 'black', 'step': '0'}, {'name' : 'queen', 'color' : 'black', 'step': '0'}, {'name' : 'king', 'color' : 'black', 'step': '0'}, {'name' : 'bishop', 'color' : 'black', 'step': '0'}, {'name' : 'knigth', 'color' : 'black', 'step': '0'}, {'name' : 'rook', 'color' : 'black', 'step': '0'}],
-    [{'name' : 'pawn', 'color' : 'black', 'step': '0'}, {'name' : 'pawn', 'color' : 'black', 'step': '0'}, {'name' : 'pawn', 'color' : 'black', 'step': '0'}, {'name' : 'pawn', 'color' : 'black', 'step': '0'}, {'name' : 'pawn', 'color' : 'black', 'step': '0'}, {'name' : 'pawn', 'color' : 'black', 'step': '0'}, {'name' : 'pawn', 'color' : 'black', 'step': '0'}, {'name' : 'pawn', 'color' : 'black', 'step': '0'}],
-    [{'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}],
-    [{'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}],
-    [{'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}],
-    [{'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}, {'name' : '', 'color' : '', 'step': '0'}],
-    [{'name' : 'pawn', 'color' : 'white', 'step': '0'}, {'name' : 'pawn', 'color' : 'white', 'step': '0'}, {'name' : 'pawn', 'color' : 'white', 'step': '0'}, {'name' : 'pawn', 'color' : 'white', 'step': '0'}, {'name' : 'pawn', 'color' : 'white', 'step': '0'}, {'name' : 'pawn', 'color' : 'white', 'step': '0'}, {'name' : 'pawn', 'color' : 'white', 'step': '0'}, {'name' : 'pawn', 'color' : 'white', 'step': '0'}],
-    [{'name' : 'rook', 'color' : 'white', 'step': '0'}, {'name' : 'knigth', 'color' : 'white', 'step': '0'}, {'name' : 'bishop', 'color' : 'white', 'step': '0'}, {'name' : 'queen', 'color' : 'white', 'step': '0'}, {'name' : 'king', 'color' : 'white', 'step': '0'}, {'name' : 'bishop', 'color' : 'white', 'step': '0'}, {'name' : 'knigth', 'color' : 'white', 'step': '0'}, {'name' : 'rook', 'color' : 'white', 'step': '0'}],
-];
 const colors = ['white', 'black', 'белых', 'черных'];
 let col = 0;
-let figure_picture = '';
 let figureCoordinate = {'x': -1, 'y': -1};
 let cellCoordinate = {'x': -1, 'y': -1};
 let bkingCoordinate = {'x': 4, 'y': 0};
@@ -19,7 +8,6 @@ let wkingCoordinate = {'x': 4, 'y': 7};
 let wkingCoordinate2 = {'x': 4, 'y': 7};
 let shah = 0;
 let figureStatus = false;
-let cellColor = '';
 let dataType = '';
 let start = 0, stoper = 0;
 let startx = 0, stoperx = 0, starty = 0, stopery = 0;
@@ -33,6 +21,7 @@ let math = 0;
 let shahfigure = {'x' : -1, 'y' : -1};
 let saveshahfigure = {'x' : -1, 'y' : -1};
 let closeshah = 0;
+let field = 'rnb1kbnr/ppppp1pp/8/8/1q2P1p1/8/PPPP1PPP/RNBQKBNR';
 
 function makeMove(figureCoordinate, cellCoordinate){
     const cell = document.querySelector('.cell-' + cellCoordinate.y + '-' + cellCoordinate.x);
@@ -985,34 +974,98 @@ function swap(f1, f2){
     figures[f2.y][f2.x] = figures[f1.y][f1.x];
     figures[f1.y][f1.x] = d;
 }
-
-let html = '<table cellpadding="0" cellspacing="0">';
-for (let y = 0; y < 8; y++) {
-    html += '<tr>';
-    for (let x = 0; x < 8; x++) {
-        figure_picture = '';
-        dataType = 'cell';
-        if (figures[y][x].name !== '') {
-            figure_picture = `
-                <a href="javascript:return false;" class="figure" data-x="${x}" data-y="${y}">
-                    <img src="img/` + figures[y][x].color + '_' + figures[y][x].name +  `.png" data-figure="${figures[y][x]}" />
-                </a>
-            `;
-            dataType = 'figure';
-            //figure_picture = figures[i][j];
-        }
-
-        if ((y + x) % 2 === 1) {
-            cellColor = 'black';
-        } else {
-            cellColor = 'white';
-        }
-        html += `<td class="${cellColor} cell cell-${y}-${x}" data-x="${x}" data-y="${y}" data-type="${dataType}">` + figure_picture + `</td>`;
-    }
-    html += '</tr>';
+function getCell(color, type, figure) {
+    return `<td class="${color} cell" data-type="${type}">` + figure + `</td>`;
 }
-html += '</table>';
-document.querySelector('#table').innerHTML = html;
+function getCellColor(color) {
+    if (color == 'white') {
+        color = 'black';
+    } else {
+        color = 'white';
+    }
+    return color;
+}
+
+function getImage(piece) {
+    if(piece == 'r') {
+        return 'black_rook.png';
+    }
+    if(piece == 'n') {
+        return 'black_knigth.png';
+    }
+    if(piece == 'b') {
+        return 'black_bishop.png';
+    }
+    if(piece == 'q') {
+        return 'black_queen.png';
+    }
+    if(piece == 'k') {
+        return 'black_king.png';
+    }
+    if(piece == 'R') {
+        return 'white_rook.png';
+    }
+    if(piece == 'N') {
+        return 'white_knigth.png';
+    }
+    if(piece == 'B') {
+        return 'white_bishop.png';
+    }
+    if(piece == 'Q') {
+        return 'white_queen.png';
+    }
+    if(piece == 'K') {
+        return 'white_king.png';
+    }
+    if(piece == 'p') {
+        return 'black_pawn.png';
+    }
+    if(piece == 'P') {
+        return 'white_pawn.png';
+    }
+    if(piece == '1' || piece == '2' || piece == '3' || piece == '4' || piece == '5' || piece == '6' || piece == '7' || piece == '8'){
+        return '';
+    }
+}
+function printField(str) {
+    let html = '<table cellpadding="0" cellspacing="0">';
+    let figure_picture = '';
+    let cellColor = 'white';
+    const arr = str.split('/');
+    for(let i = 0; i < arr.length; i++) {
+        arr[i] = arr[i].split('');
+    }
+    for (let y = 0; y < 8; y++) {
+        html += '<tr>';
+        cellColor = getCellColor(cellColor);
+        for (let x = 0; x < arr[y].length; x++) {
+            figure_picture = '';
+            dataType = 'cell';
+            if (getImage(arr[y][x]) !== '') {
+                figure_picture = `
+                    <a href="javascript:return false;" class="figure" >
+                        <img src="img/` + getImage(arr[y][x]) +  `" />
+                    </a>
+                `;
+                dataType = 'figure';
+                cellColor = getCellColor(cellColor);
+                html += getCell(cellColor, dataType, figure_picture);
+            } else {
+                for(let i = 0; i < arr[y][x]; i++) {
+                    cellColor = getCellColor(cellColor);
+                    html += getCell(cellColor, dataType, figure_picture);
+                }
+            }
+
+            
+        }
+        html += '</tr>';
+    }
+    html += '</table>';
+    document.querySelector('#table').innerHTML = html;
+}
+
+printField(field);
 //ход
 document.querySelectorAll('.cell').forEach((cell) => {
     cell.addEventListener('click', function() {
