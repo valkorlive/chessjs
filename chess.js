@@ -1023,9 +1023,8 @@ function getImage(piece) {
     if(piece == 'P') {
         return 'white_pawn.png';
     }
-    if(piece == '1' || piece == '2' || piece == '3' || piece == '4' || piece == '5' || piece == '6' || piece == '7' || piece == '8'){
-        return '';
-    }
+    
+    return '';
 }
 function printField(str) {
     let html = '<table cellpadding="0" cellspacing="0">';
@@ -1039,11 +1038,10 @@ function printField(str) {
         html += '<tr>';
         cellColor = getCellColor(cellColor);
         for (let x = 0; x < arr[y].length; x++) {
-            figure_picture = '';
             dataType = 'cell';
             if (getImage(arr[y][x]) !== '') {
                 figure_picture = `
-                    <a href="javascript:return false;" class="figure" >
+                    <a href="javascript:return false;" class="figure">
                         <img src="img/` + getImage(arr[y][x]) +  `" />
                     </a>
                 `;
@@ -1053,7 +1051,7 @@ function printField(str) {
             } else {
                 for(let i = 0; i < arr[y][x]; i++) {
                     cellColor = getCellColor(cellColor);
-                    html += getCell(cellColor, dataType, figure_picture);
+                    html += getCell(cellColor, dataType, '');
                 }
             }
 
@@ -1067,6 +1065,17 @@ function printField(str) {
 
 printField(field);
 //ход
+
+let fx = 0,
+    fy = 0;
+document.querySelectorAll('.figure').forEach((figure) => {
+    figure.addEventListener('mousedown', function(event) {
+        fx = event.pageX;
+        console.log(fx);
+    })
+});
+
+
 document.querySelectorAll('.cell').forEach((cell) => {
     cell.addEventListener('click', function() {
         dataType = this.getAttribute('data-type');
