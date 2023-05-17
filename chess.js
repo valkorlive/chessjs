@@ -21,7 +21,7 @@ let math = 0;
 let shahfigure = {'x' : -1, 'y' : -1};
 let saveshahfigure = {'x' : -1, 'y' : -1};
 let closeshah = 0;
-let field = 'rnb1kbnr/ppppp1pp/8/8/1q2P1p1/8/PPPP1PPP/RNBQKBNR';
+let field = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
 
 function makeMove(figureCoordinate, cellCoordinate){
     const cell = document.querySelector('.cell-' + cellCoordinate.y + '-' + cellCoordinate.x);
@@ -1041,7 +1041,7 @@ function printField(str) {
             dataType = 'cell';
             if (getImage(arr[y][x]) !== '') {
                 figure_picture = `
-                    <a href="javascript:return false;" class="figure">
+                    <a href="javascript:return false;" class="figure" data-type="${arr[y][x]}">
                         <img src="img/` + getImage(arr[y][x]) +  `" />
                     </a>
                 `;
@@ -1062,17 +1062,95 @@ function printField(str) {
     html += '</table>';
     document.querySelector('#table').innerHTML = html;
 }
+function createNewStr(str) {
+    const raa = str.split('/');
+    const arr = [];
+    for(let i = 0; i < raa.length; i++) {
+        raa[i] = raa[i].split('');
+    }
+    for(let i = 0; i < raa.length; i++) {
+        const raa2 = [];
+        for(let j = 0; j < raa[i].length; j++) {
+            console.log(raa[i][j]);
+            if(raa[i][j] == '1' || raa[i][j] == '2' || raa[i][j] == '3' || raa[i][j] == '4' || raa[i][j] == '5' || raa[i][j] == '6' || raa[i][j] == '7' || raa[i][j] == '8') {
+                for (let u = 0; u < raa[i][j] * 1; u++) {
+                    raa2.push('');
+                }
+            } else {
+                raa2.push(raa[i][j]);
+            }
+        }
+        arr.push(raa2);
+    }
+    return arr;
+}
+function domove(arr, p1x, p1y, p2x, p2y) {
+    arr[p2y][p2x] = arr[p1y][p1x];
+    arr[p1y][p1x] = '';
+    let txt = '';
+    let spase = 1;
+    for(let i = 0; i < arr.length; i++) {
+        for(let j = 0; j < arr.length; j++) {
+            if(arr[i][j] = '') {
+                while(arr[i][j + 1] == '') {
+                    spase++;
+                    j++;
+                }
+                txt += spase; 
+            } else {
+                txt += arr[i][j];
+            }
+        }
+        txt += '/';
+    }
+    return txt;
+}
 
 printField(field);
 //ход
 
 let fx = 0,
-    fy = 0;
+    fy = 0,
+    sx = 0,
+    sy = 0,
+    off = 0,
+    figureActive;
+const container = document.querySelector('#table table');
 document.querySelectorAll('.figure').forEach((figure) => {
     figure.addEventListener('mousedown', function(event) {
-        fx = event.pageX;
-        console.log(fx);
-    })
+        if (off == 0) {
+            sx = event.pageX - (container.getBoundingClientRect().left + document.body.scrollLeft);
+            sy = event.pageY - (container.getBoundingClientRect().top + document.body.scrollTop);
+            sx /= 132,67;
+            sy /= 132,67;
+            sx -= (sx % 1);
+            sy -= (sy % 1);
+            off = 1;
+        }
+        console.log(sx, sy);
+        figureActive = figure;
+        figure.style.position = 'fixed';
+    });
+    figure.addEventListener('mouseup', function(event) {
+        //console.log(event.pageX, event.pageY);
+        let x = event.pageX - (container.getBoundingClientRect().left + document.body.scrollLeft);
+        let y = event.pageY - (container.getBoundingClientRect().top + document.body.scrollTop);
+        x /= 132,67;
+        y /= 132,67;
+        x -= (x % 1);
+        y -= (y % 1);
+        console.log(x, y);
+        field = domove(createNewStr(field), sx, sy, x, y);
+        printField(field);
+        figure.style.position = 'static';
+    });
+    
+});
+document.querySelector('#table').addEventListener('mousemove', function(event) {
+    fx = event.pageX;
+    fy = event.pageY;
+    figureActive.style.left = (fx - 65) + 'px';
+    figureActive.style.top = (fy - 65) + 'px';
 });
 
 

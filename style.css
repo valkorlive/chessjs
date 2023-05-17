@@ -40,3 +40,6 @@ td img {
     align-items: center;
     justify-content: center;
 }
+#table {
+    position: relative;
+}
