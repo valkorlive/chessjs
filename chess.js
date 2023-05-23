@@ -1063,26 +1063,25 @@ function printField(str) {
     document.querySelector('#table').innerHTML = html;
 }
 function createNewStr(str) {
-    const raa = str.split('/');
-    const arr = [];
+    let raa = str.split('/');
+    let add = [[], [], [], [], [], [], [], []];
     for(let i = 0; i < raa.length; i++) {
         raa[i] = raa[i].split('');
     }
     for(let i = 0; i < raa.length; i++) {
-        const raa2 = [];
         for(let j = 0; j < raa[i].length; j++) {
             console.log(raa[i][j]);
             if(raa[i][j] == '1' || raa[i][j] == '2' || raa[i][j] == '3' || raa[i][j] == '4' || raa[i][j] == '5' || raa[i][j] == '6' || raa[i][j] == '7' || raa[i][j] == '8') {
                 for (let u = 0; u < raa[i][j] * 1; u++) {
-                    raa2.push('');
+                    add[i].push('');
                 }
             } else {
-                raa2.push(raa[i][j]);
+                add[i].push(raa[i][j]);
             }
         }
-        arr.push(raa2);
     }
-    return arr;
+    console.log(add);
+    return add;
 }
 function domove(arr, p1x, p1y, p2x, p2y) {
     arr[p2y][p2x] = arr[p1y][p1x];
