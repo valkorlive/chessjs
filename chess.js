@@ -1063,25 +1063,26 @@ function printField(str) {
     document.querySelector('#table').innerHTML = html;
 }
 function createNewStr(str) {
-    let raa = str.split('/');
-    let add = [[], [], [], [], [], [], [], []];
-    for(let i = 0; i < raa.length; i++) {
-        raa[i] = raa[i].split('');
+    const field_arr = str.split('/');
+    const arr = [];
+    let temp = [];
+    for(let i = 0; i < field_arr.length; i++) {
+        field_arr[i] = field_arr[i].split('');
     }
-    for(let i = 0; i < raa.length; i++) {
-        for(let j = 0; j < raa[i].length; j++) {
-            console.log(raa[i][j]);
-            if(raa[i][j] == '1' || raa[i][j] == '2' || raa[i][j] == '3' || raa[i][j] == '4' || raa[i][j] == '5' || raa[i][j] == '6' || raa[i][j] == '7' || raa[i][j] == '8') {
-                for (let u = 0; u < raa[i][j] * 1; u++) {
-                    add[i].push('');
+    for(let i = 0; i < field_arr.length; i++) {
+        temp = [];
+        for(let j = 0; j < field_arr[i].length; j++) {
+            if(field_arr[i][j] == '1' || field_arr[i][j] == '2' || field_arr[i][j] == '3' || field_arr[i][j] == '4' || field_arr[i][j] == '5' || field_arr[i][j] == '6' || field_arr[i][j] == '7' || field_arr[i][j] == '8') {
+                for (let u = 0; u < field_arr[i][j] * 1; u++) {
+                    temp.push('');
                 }
             } else {
-                add[i].push(raa[i][j]);
+                temp.push(field_arr[i][j]);
             }
         }
+        arr.push(temp);
     }
-    console.log(add);
-    return add;
+    return arr;
 }
 function domove(arr, p1x, p1y, p2x, p2y) {
     arr[p2y][p2x] = arr[p1y][p1x];
@@ -1134,12 +1135,13 @@ document.querySelectorAll('.figure').forEach((figure) => {
         //console.log(event.pageX, event.pageY);
         let x = event.pageX - (container.getBoundingClientRect().left + document.body.scrollLeft);
         let y = event.pageY - (container.getBoundingClientRect().top + document.body.scrollTop);
+        let field_arr = createNewStr(field);
         x /= 132,67;
         y /= 132,67;
         x -= (x % 1);
         y -= (y % 1);
         console.log(x, y);
-        field = domove(createNewStr(field), sx, sy, x, y);
+        field = domove(field_arr, sx, sy, x, y);
         printField(field);
         figure.style.position = 'static';
     });
